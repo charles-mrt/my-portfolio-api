@@ -10,7 +10,7 @@ app.register(cors, {
 
 
 app.register(projectRoutes, {
-  prefix: '/project',
+  prefix: '/projects',
 })
 
 app
