@@ -14,16 +14,16 @@ datasource db {
 }
 
 model Project {
-  id          String   @id @default(uuid()) @map("_id")
-  is_public   Boolean  @default(false)
-  image       String
-  alt         String
-  title       String
-  tecnologies String[]
-  categories  String[]
-  description String
-  url         String
-  github      String
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  id           String   @id @default(uuid()) @map("_id")
+  is_public    Boolean  @default(false)
+  image        String
+  alt          String
+  title        String
+  technologies String[]
+  categories   String[]
+  description  String
+  url          String
+  github       String
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
 }

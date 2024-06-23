@@ -40,7 +40,7 @@ export async function projectRoutes(fastify: FastifyInstance) {
   fastify.put<{ Params: { id: string }, Body: Omit<ProjectProps, 'id'> }>(`/:id`, async (req, reply) => {
 
     const { id } = req.params
-    const { is_public, image, alt, title, tecnologies, categories, description, url, github } = req.body
+    const { is_public, image, alt, title, technologies, categories, description, url, github } = req.body
 
     try {
       const response = await projectRepository.updateProject({
@@ -49,7 +49,7 @@ export async function projectRoutes(fastify: FastifyInstance) {
         image,
         alt,
         title,
-        tecnologies,
+        technologies,
         categories,
         description,
         url,
@@ -72,14 +72,14 @@ export async function projectRoutes(fastify: FastifyInstance) {
   })
 
   fastify.post<{ Body: ProjectProps }>('/', async (req, reply) => {
-    const { is_public, image, alt, title, tecnologies, categories, description, url, github } = req.body
+    const { is_public, image, alt, title, technologies, categories, description, url, github } = req.body
     try {
       const response = await projectRepository.createProject({
         is_public,
         image,
         alt,
         title,
-        tecnologies,
+        technologies,
         categories,
         description,
         url,
