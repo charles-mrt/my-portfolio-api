@@ -37,9 +37,9 @@ export async function projectRoutes(fastify: FastifyInstance) {
     }
   })
 
-  fastify.put<{ Params: { id: string }, Body: Omit<ProjectProps, 'id'> }>(`/:id`, async (req, reply) => {
-
-    const { id } = req.params
+  fastify.patch<{ Params: { id: string }, Body: Omit<ProjectProps, 'id'> }>(`/:id`, async (req, reply) => {
+    
+    const { id } = req.params    
     const { is_public, image, alt, title, technologies, categories, description, url, github } = req.body
 
     try {
