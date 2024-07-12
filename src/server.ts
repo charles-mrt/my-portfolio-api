@@ -13,10 +13,17 @@ app.register(projectRoutes, {
   prefix: '/projects',
 })
 
-app
-  .listen({
-    port: 3333,
-  })
-  .then(() => {
-    console.log('🚀 HTTP server runing on http://localhost:3333')
-  })
+
+const PORT = process.env.VERCEL ? process.env.PORT : 3333
+
+const start = async () => {
+  try {
+    await app.listen(PORT)
+    console.log(`🚀 HTTP server running on http://localhost:${PORT}`)
+  } catch (err) {
+    console.error(err)
+    process.exit(1)
+  }
+}
+
+start()
