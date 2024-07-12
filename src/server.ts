@@ -14,12 +14,10 @@ app.register(projectRoutes, {
 })
 
 
-const PORT = process.env.VERCEL ? process.env.PORT : 3333
-
 const start = async () => {
   try {
-    await app.listen(PORT)
-    console.log(`🚀 HTTP server running on http://localhost:${PORT}`)
+    await app.listen() 
+    console.log('🚀 HTTP server running')
   } catch (err) {
     console.error(err)
     process.exit(1)
