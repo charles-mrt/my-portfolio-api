@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "bulds": [
+  "builds": [
     {
       "src":"./dist/server.js",
       "use":"@now/node"
