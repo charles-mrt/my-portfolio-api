@@ -11,9 +11,7 @@ app.register(cors, {
 })
 
 
-app.register(projectRoutes, {
-  prefix: '/projects',
-})
+app.register(projectRoutes)
 
 
 const start = async () => {
