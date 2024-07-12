@@ -12,9 +12,7 @@ const app = (0, fastify_1.default)({
 app.register(cors_1.default, {
     origin: true,
 });
-app.register(project_routes_1.projectRoutes, {
-    prefix: '/projects',
-});
+app.register(project_routes_1.projectRoutes);
 const start = async () => {
     try {
         await app.listen();
