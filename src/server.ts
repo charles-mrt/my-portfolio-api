@@ -2,7 +2,9 @@ import fastify from 'fastify'
 import cors from '@fastify/cors'
 import { projectRoutes } from './routes/project.routes'
 
-const app = fastify()
+const app = fastify({
+  logger: true
+})
 
 app.register(cors, {
   origin: true,
@@ -25,3 +27,4 @@ const start = async () => {
 }
 
 start()
+
