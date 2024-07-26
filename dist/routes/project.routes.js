@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.projectRoutes = void 0;
+exports.projectRoutes = projectRoutes;
 const project_repository_1 = require("../repositories/project.repository");
 async function projectRoutes(fastify) {
     const projectRepository = new project_repository_1.ProjectRepository();
@@ -88,4 +88,3 @@ async function projectRoutes(fastify) {
         }
     });
 }
-exports.projectRoutes = projectRoutes;
