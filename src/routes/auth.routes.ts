@@ -1,22 +1,36 @@
-import { FastifyInstance } from 'fastify';
-import fastifyPassport from '@fastify/passport';
+import { FastifyInstance } from 'fastify'
+import fastifyPassport from '@fastify/passport'
+
+const loginRedirectUrl = process.env.CLIENT_LOGIN_URL
+const dashboardRedirectUrl = process.env.CLIENT_DASHBOARD_URL
+const homeRedirectUrl = process.env.CLIENT_HOME_URL
 
 export async function authRoutes(fastify: FastifyInstance) {
-    fastify.get('/login', fastifyPassport.authenticate('google', { scope: ['profile', 'email'] }));
 
-    fastify.get('/auth/google/callback',
-        { preValidation: fastifyPassport.authenticate('google', { failureRedirect: '/' }) },
-        async (req, res) => {
-            if (req.user) {
-                res.redirect('/dashboard');
-            } else {
-                res.redirect('/'); // Ou redirecione para uma página de erro
-            }
-        }
-    );
+  fastify.get('/auth/google/callback', {
+    preValidation: fastifyPassport.authenticate('google',
+      {
+        failureRedirect: `${loginRedirectUrl}?error=authentication_failed`,
+        session: true
+      }
+    )
+  },
+    async (req, res) => {
+      if (req.user) {
+        res.redirect(dashboardRedirectUrl!)
+      } else {
+        res.redirect(loginRedirectUrl!)
+      }
+    }
+  )
+  
+  fastify.get('/login', fastifyPassport.authenticate('google',
+    { scope: ['profile', 'email'] }
+  ))
 
-    fastify.get('/logout', async (req, res) => {
-        req.session.delete(); // Usa o método delete para encerrar a sessão
-        res.redirect('/');
-    });
+  fastify.get('/logout', async (req, res) => {
+    req.session.delete()
+    res.redirect(homeRedirectUrl!)
+  })
 }
+
