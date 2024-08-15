@@ -6,7 +6,8 @@ export async function projectRoutes(fastify: FastifyInstance) {
 
   const projectRepository = new ProjectRepository()
 
-  fastify.get('/', async (req, reply) => {
+  fastify.get('/projects', async (req, reply) => {
+        
     try {
       const response = await projectRepository.findAllProjects()
       reply.send(response)
@@ -16,9 +17,9 @@ export async function projectRoutes(fastify: FastifyInstance) {
     }
   })
 
-  fastify.get('/public', async (req, reply) => {
+  fastify.get('/projects/public', async (req, reply) => {
     try {
-      const response = await projectRepository.findAllPublicProjects()
+      const response = await projectRepository.findAllPublicProjects()     
       reply.send(response)
     } catch (error) {
       console.error('Error fetching projects:', error)
@@ -26,20 +27,21 @@ export async function projectRoutes(fastify: FastifyInstance) {
     }
   })
 
-  fastify.get<{ Params: { id: string } }>(`/:id`, async (req, reply) => {
+  fastify.get<{ Params: { id: string } }>(`projects/:id`, async (req, reply) => {
+
     const { id } = req.params
     try {
-      const response = await projectRepository.findProjectById(id)
+      const response = await projectRepository.findProjectById(id)            
       reply.send(response)
     } catch (error) {
-      console.error('Error fetching project:', error)
+      console.error('Error fetching project:', error)     
       reply.status(500).send({ error: 'Internal Server Error' })
     }
   })
 
-  fastify.patch<{ Params: { id: string }, Body: Omit<ProjectProps, 'id'> }>(`/:id`, async (req, reply) => {
-    
-    const { id } = req.params    
+  fastify.patch<{ Params: { id: string }, Body: Omit<ProjectProps, 'id'> }>(`projects/:id`, async (req, reply) => {
+
+    const { id } = req.params
     const { is_public, image, alt, title, technologies, categories, description, url, github } = req.body
 
     try {
@@ -61,7 +63,8 @@ export async function projectRoutes(fastify: FastifyInstance) {
     }
   })
 
-  fastify.delete<{ Params: { id: string } }>(`/:id`, async (req, reply) => {
+  fastify.delete<{ Params: { id: string } }>(`projects/:id`, async (req, reply) => {
+
     const { id } = req.params
     try {
       const project = await projectRepository.deleteProject(id)
@@ -71,7 +74,8 @@ export async function projectRoutes(fastify: FastifyInstance) {
     }
   })
 
-  fastify.post<{ Body: ProjectProps }>('/', async (req, reply) => {
+  fastify.post<{ Body: ProjectProps }>('projects/', async (req, reply) => {
+    
     const { is_public, image, alt, title, technologies, categories, description, url, github } = req.body
     try {
       const response = await projectRepository.createProject({
