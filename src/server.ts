@@ -13,7 +13,7 @@ import { authRoutes } from './routes/auth.routes'
 const app = fastify({ logger: true })
 
 app.register(cors, {
-  origin:process.env.ALLOWED_CLIENT,  
+  origin:true,  
   credentials: true
 })
 
