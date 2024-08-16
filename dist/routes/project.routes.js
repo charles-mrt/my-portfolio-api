@@ -4,7 +4,7 @@ exports.projectRoutes = projectRoutes;
 const project_repository_1 = require("../repositories/project.repository");
 async function projectRoutes(fastify) {
     const projectRepository = new project_repository_1.ProjectRepository();
-    fastify.get('/', async (req, reply) => {
+    fastify.get('/projects', async (req, reply) => {
         try {
             const response = await projectRepository.findAllProjects();
             reply.send(response);
@@ -14,7 +14,7 @@ async function projectRoutes(fastify) {
             reply.status(500).send({ error: 'Internal Server Error' });
         }
     });
-    fastify.get('/public', async (req, reply) => {
+    fastify.get('/projects/public', async (req, reply) => {
         try {
             const response = await projectRepository.findAllPublicProjects();
             reply.send(response);
@@ -24,7 +24,7 @@ async function projectRoutes(fastify) {
             reply.status(500).send({ error: 'Internal Server Error' });
         }
     });
-    fastify.get(`/:id`, async (req, reply) => {
+    fastify.get(`projects/:id`, async (req, reply) => {
         const { id } = req.params;
         try {
             const response = await projectRepository.findProjectById(id);
@@ -35,7 +35,7 @@ async function projectRoutes(fastify) {
             reply.status(500).send({ error: 'Internal Server Error' });
         }
     });
-    fastify.patch(`/:id`, async (req, reply) => {
+    fastify.patch(`projects/:id`, async (req, reply) => {
         const { id } = req.params;
         const { is_public, image, alt, title, technologies, categories, description, url, github } = req.body;
         try {
@@ -57,7 +57,7 @@ async function projectRoutes(fastify) {
             reply.status(500).send({ error: 'Internal Server Error' });
         }
     });
-    fastify.delete(`/:id`, async (req, reply) => {
+    fastify.delete(`projects/:id`, async (req, reply) => {
         const { id } = req.params;
         try {
             const project = await projectRepository.deleteProject(id);
@@ -67,7 +67,7 @@ async function projectRoutes(fastify) {
             reply.status(500).send({ error: 'Internal Server Error' });
         }
     });
-    fastify.post('/', async (req, reply) => {
+    fastify.post('projects/', async (req, reply) => {
         const { is_public, image, alt, title, technologies, categories, description, url, github } = req.body;
         try {
             const response = await projectRepository.createProject({

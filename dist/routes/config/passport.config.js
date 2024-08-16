@@ -16,7 +16,7 @@ function configurePassport() {
     passport_1.default.use('google', new passport_google_oauth20_1.Strategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: "http://localhost:3000/auth/google/callback"
+        callbackURL: process.env.GOOGLE_CALLBACK,
     }, (accessToken, refreshToken, profile, cb) => {
         const email = profile.emails && profile.emails[0] && profile.emails[0].value;
         if (email === allowedEmail) {
@@ -27,13 +27,13 @@ function configurePassport() {
         }
         else {
             console.log('Unauthorized access attempt by email:', email);
-            cb(new Error('Unauthorized'), null);
+            cb(null, false);
         }
     }));
-    passport_1.default.registerUserDeserializer(async (user, req) => {
+    passport_1.default.registerUserSerializer(async (user, req) => {
         return user;
     });
-    passport_1.default.registerUserSerializer(async (user, req) => {
+    passport_1.default.registerUserDeserializer(async (user, req) => {
         return user;
     });
 }
