@@ -22,7 +22,9 @@ app.register(fastifySecureSession, {
   cookieName: 'ch_session',
   key: fs.readFileSync(path.join(__dirname, process.env.SESSION_SECRET_KEY!)),
   cookie: {
-    path: '/'
+    path: '/',
+    httpOnly: true,
+    sameSite: 'lax',
   }
 })
 app.register(fastifyPassport.initialize())
