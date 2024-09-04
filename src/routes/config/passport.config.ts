@@ -11,23 +11,25 @@ if (!allowedEmail) {
 }
 
 export function configurePassport() {
-  fastifyPassport.use('google', new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID!,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    callbackURL: process.env.GOOGLE_CALLBACK!,
-  }, (accessToken, refreshToken, profile, cb) => {
-    const email = profile.emails && profile.emails[0] && profile.emails[0].value
+  fastifyPassport.use('google', new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      callbackURL: process.env.GOOGLE_CALLBACK!,
+    },
+    (accessToken, refreshToken, profile, cb) => {
+      const email = profile.emails && profile.emails[0] && profile.emails[0].value
 
-    if (email === allowedEmail) {
-      const user = {
-        displayName: profile.displayName || 'No Name'
+      if (email === allowedEmail) {
+        const user = {
+          displayName: profile.displayName || 'No Name'
+        }
+        cb(null, user)
+      } else {
+        console.log('Unauthorized access attempt by email:', email)
+        cb(null, false)
       }
-      cb(null, user)
-    } else {
-      console.log('Unauthorized access attempt by email:', email)
-      cb(null, false)
-    }
-  }))
+    }))
   fastifyPassport.registerUserSerializer(async (user, req) => {
     return user
   })
