@@ -13,14 +13,14 @@ import { authRoutes } from './routes/auth.routes'
 const app = fastify({ logger: true })
 
 app.register(cors, {
-  origin:true,  
+  origin:process.env.ALLOWED_CLIENT,  
   credentials: true
 })
 
 
 app.register(fastifySecureSession, {
   cookieName: 'ch_session',
-  key: Buffer.from(process.env.SESSION_SECRET_KEY!, 'utf-8'),
+  key: fs.readFileSync(path.join(__dirname, process.env.SESSION_SECRET_KEY!)),
   cookie: {
     path: '/'
   }
