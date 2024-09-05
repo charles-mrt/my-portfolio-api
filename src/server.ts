@@ -24,8 +24,8 @@ app.register(fastifySecureSession, {
   key: process.env.SESSION_SECRET_KEY!,
   cookie: {
     path: '/',
-    // httpOnly: true,
-    // sameSite: 'lax',
+    httpOnly: true,
+    sameSite: 'lax',
   }
 })
 app.register(fastifyPassport.initialize())
