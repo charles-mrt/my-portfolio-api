@@ -20,13 +20,14 @@ app.register(cors, {
 
 app.register(fastifySecureSession, {
   cookieName: 'ch_session',
-  key: process.env.SESSION_SECRET_KEY!,
+  key: Buffer.from(process.env.SESSION_SECRET_KEY!, 'hex'),
   cookie: {
     path: '/',
     httpOnly: true,
     sameSite: 'lax',
   }
 })
+
 app.register(fastifyPassport.initialize())
 app.register(fastifyPassport.secureSession())
 
