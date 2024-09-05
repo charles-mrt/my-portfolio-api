@@ -20,7 +20,7 @@ app.register(cors, {
 
 app.register(fastifySecureSession, {
   cookieName: 'ch_session',
-  key: process.env.SESSION_SECRET_KEY!,
+  key: process.env.SESSION_SECRET_KEY || '',
   cookie: {
     path: '/',
     httpOnly: true,
