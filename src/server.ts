@@ -19,8 +19,8 @@ app.register(cors, {
 
 
 app.register(fastifySecureSession, {
-  cookieName: 'ch_session',
-  key: fs.readFileSync(path.join(__dirname, process.env.SESSION_SECRET_KEY!)),
+  cookieName: 'ch_session', 
+  key: process.env.SESSION_SECRET_KEY!,
   cookie: {
     path: '/',
     httpOnly: true,
