@@ -3,9 +3,6 @@ import fastifyPassport from '@fastify/passport'
 import fastifySecureSession from '@fastify/secure-session'
 import cors from '@fastify/cors'
 
-import fs from 'fs'
-import path from 'path'
-
 import { configurePassport } from './routes/config/passport.config'
 import { projectRoutes } from './routes/project.routes'
 import { authRoutes } from './routes/auth.routes'
